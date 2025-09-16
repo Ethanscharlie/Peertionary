@@ -7,21 +7,16 @@ peer.on('open', function(id) {
 });
 
 peer.on('connection', function(conn) { 
-  console.log(conn)
-  document.getElementById("peerStatus").innerText = "Peer Status: Connected"
-  
-  conn.on('open', function() {
-  	conn.on('data', function(data) {
-      logMessage("Other", data)
-  	});
-  });
-
-  connections.push(conn)
+  onGeneralConnectionOpen(conn)
 });
 
 function inputID() {
   var input = prompt("What is id?");
   conn = peer.connect(input);
+  onGeneralConnectionOpen(conn)
+}
+
+function onGeneralConnectionOpen(conn) {
   conn.on('open', function() {
     document.getElementById("peerStatus").innerText = "Peer Status: Connected" 
 
@@ -31,10 +26,6 @@ function inputID() {
   });
 
   connections.push(conn)
-}
-
-function onGeneralConnectionOpen(params) {
-  
 }
 
 function logMessage(from, message) {
