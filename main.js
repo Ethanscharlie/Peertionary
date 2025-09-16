@@ -12,8 +12,7 @@ peer.on('connection', function(conn) {
   
   conn.on('open', function() {
   	conn.on('data', function(data) {
-      console.log(data)
-      document.getElementById("peerStatus").innerText = "Peer Status: Connected -> " + data 
+      logMessage("Other", data)
   	});
   });
 
@@ -24,17 +23,24 @@ function inputID() {
   var input = prompt("What is id?");
   conn = peer.connect(input);
   conn.on('open', function() {
+    document.getElementById("peerStatus").innerText = "Peer Status: Connected" 
+
   	conn.on('data', function(data) {
-      console.log(data)
-      document.getElementById("peerStatus").innerText = "Peer Status: Connected -> " + data 
+      logMessage("Other", data)
   	});
   });
 
   connections.push(conn)
 }
 
+function logMessage(from, message) {
+  console.log(message)
+  document.getElementById("messages").innerText += from + ": " + message + "\n" 
+}
+
 function sendMessage() {
-  var input = prompt("What is id?");
+  var input = prompt("Message?");
+  logMessage("Me", input)
 
   connections.forEach((conn) => {
     conn.send(input)
