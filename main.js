@@ -33,6 +33,10 @@ function inputID() {
   connections.push(conn)
 }
 
+function onGeneralConnectionOpen(params) {
+  
+}
+
 function logMessage(from, message) {
   console.log(message)
   document.getElementById("messages").innerText += from + ": " + message + "\n" 
