@@ -3,49 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <title>WebRTC DataChannel - Two Peer Demo</title>
-    <style>
-      textarea {
-        width: 100%;
-        height: 100px;
-        margin: 5px 0;
-      }
-      input,
-      button {
-        margin: 5px 0;
-      }
-      body {
-        font-family: sans-serif;
-        max-width: 600px;
-        margin: auto;
-      }
-      pre {
-        background: #f0f0f0;
-        padding: 10px;
-      }
-    </style>
   </head>
   <body>
-    <h2>WebRTC DataChannel (Manual Signaling)</h2>
+    <button onclick="inputID()">Click Me!</button>
 
-    <button onclick="startAsOfferer()">Start as Offerer</button>
-    <button onclick="startAsAnswerer()">Start as Answerer</button>
-
-    <h3>Local SDP (Offer or Answer)</h3>
-    <textarea id="localSdp" readonly></textarea>
-
-    <h3>Paste Remote SDP</h3>
-    <textarea id="remoteSdp"></textarea>
-    <button onclick="setRemote()">Set Remote Description</button>
-
-    <hr />
-
-    <h3>Send Message</h3>
-    <input type="text" id="messageInput" />
-    <button onclick="sendMessage()">Send</button>
-
-    <h3>Messages</h3>
-    <pre id="chat"></pre>
-
+    <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
