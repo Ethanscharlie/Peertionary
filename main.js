@@ -19,7 +19,7 @@ peer.on('data', function(conn) {
 var conn
 function inputID() {
   var input = prompt("What is id?");
-  var conn = peer.connect(input);
+  conn = peer.connect(input);
   conn.on('open', function() {
   	conn.on('data', function(data) {
   	  console.log('Received', data);
