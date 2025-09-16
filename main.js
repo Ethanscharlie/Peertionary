@@ -1,9 +1,11 @@
 var connections = []
 var peer = new Peer();
+var myid = ""
 
 peer.on('open', function(id) {
 	console.log('My peer ID is: ' + id);
   document.getElementById("serverID").innerText = "My ID: " + id
+  myid = id
 });
 
 peer.on('connection', function(conn) { 
@@ -21,23 +23,23 @@ function onGeneralConnectionOpen(conn) {
     document.getElementById("peerStatus").innerText = "Peer Status: Connected" 
 
   	conn.on('data', function(data) {
-      logMessage("Other", data)
+      logMessage(data)
   	});
   });
 
   connections.push(conn)
 }
 
-function logMessage(from, message) {
+function logMessage(message) {
   console.log(message)
-  document.getElementById("messages").innerText += from + ": " + message + "\n" 
+  document.getElementById("messages").innerText += message + "\n" 
 }
 
 function sendMessage() {
   var input = prompt("Message?");
-  logMessage("Me", input)
+  logMessage("Me:" + input)
 
   connections.forEach((conn) => {
-    conn.send(input)
+    conn.send(myid + ": " + input)
   });
 }
