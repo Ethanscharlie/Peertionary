@@ -16,7 +16,8 @@ peer.on('data', function(conn) {
   document.getElementById("peerStatus").innerText = "Peer Status: Connected -> " + conn 
 });
 
-var conn
+var connections = []
+
 function inputID() {
   var input = prompt("What is id?");
   conn = peer.connect(input);
@@ -25,9 +26,14 @@ function inputID() {
   	  console.log('Received', data);
   	});
   });
+
+  connections.push(conn)
 }
 
 function sendMessage() {
   var input = prompt("What is id?");
-  conn.send(input)
+
+  connections.forEach((conn) => {
+    conn.send(input)
+  });
 }
