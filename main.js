@@ -1,4 +1,4 @@
-
+var connections = []
 var peer = new Peer();
 
 peer.on('open', function(id) {
@@ -9,21 +9,24 @@ peer.on('open', function(id) {
 peer.on('connection', function(conn) { 
   console.log(conn)
   document.getElementById("peerStatus").innerText = "Peer Status: Connected"
-});
+  
+  conn.on('open', function() {
+  	conn.on('data', function(data) {
+      console.log(data)
+      document.getElementById("peerStatus").innerText = "Peer Status: Connected -> " + data 
+  	});
+  });
 
-peer.on('data', function(conn) { 
-  console.log(conn)
-  document.getElementById("peerStatus").innerText = "Peer Status: Connected -> " + conn 
+  connections.push(conn)
 });
-
-var connections = []
 
 function inputID() {
   var input = prompt("What is id?");
   conn = peer.connect(input);
   conn.on('open', function() {
   	conn.on('data', function(data) {
-  	  console.log('Received', data);
+      console.log(data)
+      document.getElementById("peerStatus").innerText = "Peer Status: Connected -> " + data 
   	});
   });
 
