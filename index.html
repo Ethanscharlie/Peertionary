@@ -5,7 +5,13 @@
     <title>WebRTC DataChannel - Two Peer Demo</title>
   </head>
   <body>
-    <button onclick="inputID()">Click Me!</button>
+    <p id="serverID">My ID: Loading...</p>
+
+    <br />
+
+    <p id="peerStatus">Peer Status: None</p>
+    <button onclick="inputID()">Add peer</button>
+    <button onclick="inputID()">Send Message</button>
 
     <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
     <script src="main.js"></script>
