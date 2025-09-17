@@ -5,34 +5,48 @@
     <title>WebRTC DataChannel - Two Peer Demo</title>
   </head>
   <body>
+    <p id="servercode">...</p>
     <button onclick="sendMessage()">Send Message</button>
     <p id="messages"></p>
 
     <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+    <script src="main.js"></script>
     <script>
       const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get("code");
-      console.log("Opening with code " + code);
+      let code = urlParams.get("code");
 
-      var peer = new Peer();
+      let server;
+      let peer = new Peer();
       let conn;
       let clientID;
       let smallID;
 
-      peer.on("open", function (id) {
-        clientID = id;
-        smallID = clientID.split("-")[0];
-        conn = peer.connect(code);
-
-        conn.on("open", function () {
-          console.log("Opened connected from " + code);
-          conn.send(smallID + " connected.");
+      if (code == null) {
+        server = new Server((code) => {
+          setup(code);
         });
+      } else {
+        setup(code);
+      }
 
-        conn.on("data", function (data) {
-          document.getElementById("messages").innerText = data;
+      function setup(code) {
+        peer.on("open", function (id) {
+          clientID = id;
+          smallID = clientID.split("-")[0];
+
+          conn = peer.connect(code);
+          console.log("CODE is " + code);
+
+          conn.on("open", function () {
+            console.log("Opened connected from " + id);
+            conn.send(smallID + " connected.");
+          });
+
+          conn.on("data", function (data) {
+            document.getElementById("messages").innerText = data;
+          });
         });
-      });
+      }
 
       function sendMessage() {
         conn.send(smallID + " >>> " + prompt("Message?"));
