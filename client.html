@@ -5,6 +5,7 @@
     <title>WebRTC DataChannel - Two Peer Demo</title>
   </head>
   <body>
+    <button onclick="sendMessage()">Send Message</button>
     <p id="messages"></p>
 
     <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
@@ -14,19 +15,28 @@
       console.log("Opening with code " + code);
 
       var peer = new Peer();
+      let conn;
+      let clientID;
+      let smallID;
 
       peer.on("open", function (id) {
-        var conn = peer.connect(code);
+        clientID = id;
+        smallID = clientID.split("-")[0];
+        conn = peer.connect(code);
 
         conn.on("open", function () {
           console.log("Opened connected from " + code);
-          conn.send("Test message from " + id);
+          conn.send(smallID + " connected.");
         });
 
         conn.on("data", function (data) {
           document.getElementById("messages").innerText = data;
         });
       });
+
+      function sendMessage() {
+        conn.send(smallID + " >>> " + prompt("Message?"));
+      }
     </script>
   </body>
 </html>
