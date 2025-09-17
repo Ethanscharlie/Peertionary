@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>WebRTC DataChannel - Two Peer Demo</title>
+  </head>
+  <body>
+    <p id="servercode">Loading code...</p>
+
+    <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+    <script>
+      let peer = new Peer();
+      let connections = [];
+      let messages = "";
+
+      peer.on("open", function (id) {
+        document.getElementById("servercode").innerText = id;
+      });
+
+      peer.on("connection", function (conn) {
+        console.log("Got connection from " + conn.peer);
+        connections.push(conn);
+
+        conn.on("data", function (data) {
+          messages += data + "\n";
+          console.log(data);
+
+          updateForAllClients();
+        });
+      });
+
+      function updateForAllClients() {
+        connections.forEach((conn) => {
+          conn.send(messages);
+        });
+      }
+    </script>
+  </body>
+</html>

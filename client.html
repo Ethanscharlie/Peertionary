@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>WebRTC DataChannel - Two Peer Demo</title>
+  </head>
+  <body>
+    <p id="messages"></p>
+
+    <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get("code");
+      console.log("Opening with code " + code);
+
+      var peer = new Peer();
+
+      peer.on("open", function (id) {
+        var conn = peer.connect(code);
+
+        conn.on("open", function () {
+          console.log("Opened connected from " + code);
+          conn.send("Test message from " + id);
+        });
+
+        conn.on("data", function (data) {
+          document.getElementById("messages").innerText = data;
+        });
+      });
+    </script>
+  </body>
+</html>

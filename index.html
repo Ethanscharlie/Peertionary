@@ -5,18 +5,15 @@
     <title>WebRTC DataChannel - Two Peer Demo</title>
   </head>
   <body>
-    <p id="serverID">My ID: Loading...</p>
-
-    <br />
-
-    <p id="peerStatus">Peer Status: None</p>
-    <button onclick="inputID()">Add peer</button>
-    <button onclick="sendMessage()">Send Message</button>
-
-    <h3>Messages</h3>
-    <p id="messages"></p>
+    <button onclick="location.href = 'server.html'">Create room</button>
+    <button onclick="joinRoom()">Join room</button>
 
     <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
-    <script src="main.js"></script>
+    <script>
+      function joinRoom() {
+        const code = prompt("Code?");
+        location.href = "client.html?code=" + code;
+      }
+    </script>
   </body>
 </html>
