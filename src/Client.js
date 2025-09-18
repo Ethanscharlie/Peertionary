@@ -23,7 +23,7 @@ class Client {
     });
   }
 
-  sendMessage() {
-    this.conn.send(this.smallID + " >>> " + prompt("Message?"));
+  sendMessage(message) {
+    this.conn.send(this.smallID + " >>> " + message);
   }
 }
