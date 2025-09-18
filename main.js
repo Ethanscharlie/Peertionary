@@ -12,6 +12,7 @@ class Server {
 
       document.getElementById("servercode").innerText = id;
 
+      console.log("Server Open");
       this.callback(id);
     });
 

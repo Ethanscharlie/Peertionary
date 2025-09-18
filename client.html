@@ -3,6 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <title>WebRTC DataChannel - Two Peer Demo</title>
+
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
   </head>
   <body>
     <p id="servercode">...</p>
@@ -16,13 +23,14 @@
       let code = urlParams.get("code");
 
       let server;
-      let peer = new Peer();
+      let peer;
       let conn;
       let clientID;
       let smallID;
 
       if (code == null) {
         server = new Server((code) => {
+          console.log("Server up on client with code: " + code);
           setup(code);
         });
       } else {
@@ -30,6 +38,8 @@
       }
 
       function setup(code) {
+        peer = new Peer();
+
         peer.on("open", function (id) {
           clientID = id;
           smallID = clientID.split("-")[0];
