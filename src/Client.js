@@ -6,6 +6,8 @@ class Client {
     this.clientID;
     this.smallID;
 
+    this.functionToRunOnDataReceived = (data) => {}; // Fill with empty function
+
     this.peer.on("open", (id) => {
       this.clientID = id;
       this.smallID = this.clientID.split("-")[0];
@@ -17,10 +19,13 @@ class Client {
         this.conn.send(this.smallID + " connected.");
       });
 
-      this.conn.on("data", (data) => {
-        document.getElementById("messages").innerText = data;
-      });
+      this.conn.on("data", this.functionToRunOnDataReceived);
     });
+  }
+
+  onDataReceived(func) {
+    this.functionToRunOnDataReceived = func;
+    return this;
   }
 
   sendMessage(message) {

@@ -36,7 +36,9 @@
       }
 
       function setup(code) {
-        client = new Client(code);
+        client = new Client(code).onDataReceived((data) => {
+          document.getElementById("messages").innerText = data;
+        });
       }
 
       function sendMessage() {
