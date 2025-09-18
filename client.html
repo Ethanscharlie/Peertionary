@@ -18,15 +18,13 @@
 
     <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
     <script src="src/Server.js"></script>
+    <script src="src/Client.js"></script>
     <script>
       const urlParams = new URLSearchParams(window.location.search);
       let code = urlParams.get("code");
 
       let server;
-      let peer;
-      let conn;
-      let clientID;
-      let smallID;
+      let client;
 
       if (code == null) {
         server = new Server((code) => {
@@ -38,28 +36,11 @@
       }
 
       function setup(code) {
-        peer = new Peer();
-
-        peer.on("open", function (id) {
-          clientID = id;
-          smallID = clientID.split("-")[0];
-
-          conn = peer.connect(code);
-          console.log("CODE is " + code);
-
-          conn.on("open", function () {
-            console.log("Opened connected from " + id);
-            conn.send(smallID + " connected.");
-          });
-
-          conn.on("data", function (data) {
-            document.getElementById("messages").innerText = data;
-          });
-        });
+        client = new Client(code);
       }
 
       function sendMessage() {
-        conn.send(smallID + " >>> " + prompt("Message?"));
+        client.sendMessage();
       }
     </script>
   </body>
