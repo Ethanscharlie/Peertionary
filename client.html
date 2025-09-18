@@ -29,6 +29,7 @@
       if (code == null) {
         server = new Server().then((code) => {
           console.log("Server up on client with code: " + code);
+          document.getElementById("servercode").innerText = code;
           setup(code);
         });
       } else {

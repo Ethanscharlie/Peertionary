@@ -11,8 +11,6 @@ class Server {
       this.id = id;
       console.log(id);
 
-      document.getElementById("servercode").innerText = id;
-
       console.log("Server Open");
       this.onServerOpen(id);
     });
