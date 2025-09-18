@@ -1,10 +1,11 @@
 class Server {
-  constructor(callback) {
+  constructor() {
     this.peer = new Peer();
     this.connections = [];
     this.messages = "";
     this.id;
-    this.callback = callback;
+
+    this.onServerOpen = (code) => {};
 
     this.peer.on("open", (id) => {
       this.id = id;
@@ -13,7 +14,7 @@ class Server {
       document.getElementById("servercode").innerText = id;
 
       console.log("Server Open");
-      this.callback(id);
+      this.onServerOpen(id);
     });
 
     this.peer.on("connection", (conn) => {
@@ -27,6 +28,11 @@ class Server {
         this.updateForAllClients();
       });
     });
+  }
+
+  then(func) {
+    this.onServerOpen = func;
+    return this;
   }
 
   updateForAllClients() {

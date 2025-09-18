@@ -27,7 +27,7 @@
       let client;
 
       if (code == null) {
-        server = new Server((code) => {
+        server = new Server().then((code) => {
           console.log("Server up on client with code: " + code);
           setup(code);
         });
