@@ -1,7 +1,14 @@
+class Player {
+  constructor() {
+    this.ballX = 0;
+    this.ballY = 0;
+  }
+}
+
 class Server {
   constructor() {
     this.peer = new Peer();
-    this.connections = [];
+    this.connections = {};
     this.messages = "";
     this.id;
 
@@ -17,12 +24,12 @@ class Server {
 
     this.peer.on("connection", (conn) => {
       console.log("Got connection from " + conn.peer);
-      this.connections.push(conn);
-    
+      this.connections[conn] = new Player();
+
       conn.on("data", (data) => {
         this.messages += data + "\n";
         console.log(data);
-    
+
         this.updateForAllClients();
       });
     });
@@ -39,4 +46,3 @@ class Server {
     });
   }
 }
-
