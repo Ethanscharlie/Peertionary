@@ -15,6 +15,7 @@ canvas.addEventListener("mousedown", function (event) {
 });
 
 canvas.addEventListener("mousemove", function (event) {
+  if (!aiming) return;
   var mousePos = getMousePos(event);
   move.x = (dragStartPos.x - mousePos.x) / 20;
   move.y = (dragStartPos.y - mousePos.y) / 20;
