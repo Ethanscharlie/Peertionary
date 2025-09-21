@@ -58,50 +58,7 @@
         });
       }
 
-      const colors = [
-        "red",
-        "green",
-        "blue",
-        "yellow",
-        "cyan",
-        "magenta",
-        "black",
-        "white",
-        "gray",
-        "silver",
-        "maroon",
-        "olive",
-        "lime",
-        "aqua",
-        "teal",
-        "navy",
-        "fuchsia",
-        "purple",
-        "orange",
-        "pink",
-        "brown",
-        "gold",
-        "indigo",
-        "violet",
-        "turquoise",
-        "beige",
-        "coral",
-        "crimson",
-        "khaki",
-        "lavender",
-        "plum",
-        "lemonchiffon",
-        "lightblue",
-        "lightcoral",
-        "lightcyan",
-        "lightsteelblue",
-        "lightyellow",
-        "moccasin",
-        "navajowhite",
-        "oldlace",
-        "olivedrab",
-        "orangered",
-      ];
+      const colors = ["white", "white", "white", "white", "white"];
 
       function render(gameState) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -140,13 +97,12 @@
       function drawBall(player, color) {
         var RADIUS = 15;
 
+        ctx.beginPath();
+        ctx.arc(player.x, player.y, RADIUS, 0, 2 * Math.PI);
         ctx.fillStyle = color;
-        ctx.fillRect(
-          player.x - RADIUS,
-          player.y - RADIUS,
-          RADIUS * 2,
-          RADIUS * 2,
-        );
+        ctx.fill();
+        ctx.lineWidth = 5;
+        ctx.stroke();
       }
 
       let dragStartPos = { x: 0, y: 0 };
