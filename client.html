@@ -9,6 +9,7 @@
   </head>
   <body>
     <p id="servercode">...</p>
+    <p id="turn">Turn:</p>
 
     <canvas
       id="canvas"
@@ -24,6 +25,7 @@
     <script>
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
+      const turnText = document.getElementById("turn");
 
       const urlParams = new URLSearchParams(window.location.search);
       let code = urlParams.get("code");
@@ -51,6 +53,7 @@
 
       function setup(code) {
         client = new Client(code).onDataReceived((data) => {
+          turnText.innerText = "Turn: " + data.turn;
           render(data);
         });
       }
