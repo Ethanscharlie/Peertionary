@@ -55,17 +55,65 @@
         });
       }
 
+      const colors = [
+        "red",
+        "green",
+        "blue",
+        "yellow",
+        "cyan",
+        "magenta",
+        "black",
+        "white",
+        "gray",
+        "silver",
+        "maroon",
+        "olive",
+        "lime",
+        "aqua",
+        "teal",
+        "navy",
+        "fuchsia",
+        "purple",
+        "orange",
+        "pink",
+        "brown",
+        "gold",
+        "indigo",
+        "violet",
+        "turquoise",
+        "beige",
+        "coral",
+        "crimson",
+        "khaki",
+        "lavender",
+        "plum",
+        "lemonchiffon",
+        "lightblue",
+        "lightcoral",
+        "lightcyan",
+        "lightsteelblue",
+        "lightyellow",
+        "moccasin",
+        "navajowhite",
+        "oldlace",
+        "olivedrab",
+        "orangered",
+      ];
+
       function render(gameState) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        var i = 0;
         gameState.players.forEach((player) => {
-          drawBall(player);
+          drawBall(player, colors[i]);
+          i++;
         });
       }
 
-      function drawBall(player) {
+      function drawBall(player, color) {
         var RADIUS = 15;
 
-        ctx.fillStyle = "navy";
+        ctx.fillStyle = color;
         ctx.fillRect(
           player.x - RADIUS,
           player.y - RADIUS,
