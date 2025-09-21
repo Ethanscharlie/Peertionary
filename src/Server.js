@@ -1,8 +1,20 @@
+class Wall {
+  constructor(x, y, w, h) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
+}
+
 class GameState {
   constructor() {
     this.players = [];
+    this.walls = [];
     this.turn = 0;
     this.isAnythingMoving = false;
+
+    this.walls.push(new Wall(200, 200, 100, 220));
   }
 
   getCurrentPlayer() {
@@ -93,7 +105,7 @@ class Server {
 
   updatePhysics() {
     this.gameState.players.forEach((player) => {
-      player.updatePhysics();
+      player.updatePhysics(this.gameState);
     });
   }
 }
