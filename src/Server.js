@@ -2,6 +2,7 @@ class GameState {
   constructor() {
     this.players = [];
     this.turn = 0;
+    this.isAnythingMoving = false;
   }
 
   getCurrentPlayer() {
@@ -43,7 +44,10 @@ class Server {
       conn.on("data", (data) => {
         console.log(data);
 
-        if (this.itIsThisPlayersTurn(conn.peer) && !this.isAnythingMoving()) {
+        var isAnythingMoving = this.isAnythingMoving();
+        this.gameState.isAnythingMoving = isAnythingMoving;
+
+        if (this.itIsThisPlayersTurn(conn.peer) && !isAnythingMoving) {
           var player = this.gameState.getCurrentPlayer();
           player.velocityX = data.moveX;
           player.velocityY = data.moveY;

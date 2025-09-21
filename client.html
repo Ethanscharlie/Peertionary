@@ -71,7 +71,6 @@
         var i = 0;
         gameState.players.forEach((player) => {
           if (player.id == client.clientID) {
-            console.log("ITS ME");
             if (aiming) {
               ctx.beginPath();
               ctx.moveTo(player.x, player.y);
