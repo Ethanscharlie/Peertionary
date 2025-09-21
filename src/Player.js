@@ -16,6 +16,15 @@ class Player {
 
     this.velocityX = this.applyDragToNumber(this.velocityX);
     this.velocityY = this.applyDragToNumber(this.velocityY);
+
+    if (this.isOffScreen()) {
+      this.velocityX *= -1;
+      this.velocityY *= -1;
+    }
+  }
+
+  isOffScreen() {
+    return this.x < 0 || this.x > 800 || this.y < 0 || this.y > 800;
   }
 
   isMoving() {
