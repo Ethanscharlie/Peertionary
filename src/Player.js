@@ -10,6 +10,12 @@ class Player {
     this.velocityY = 0;
   }
 
+  setPosition(x, y) {
+    this.x = x;
+    this.y = y;
+    return this;
+  }
+
   updatePhysics(gameState) {
     this.x += this.velocityX;
     this.y += this.velocityY;

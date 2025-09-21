@@ -7,11 +7,19 @@ class Wall {
   }
 }
 
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
 class GameState {
   constructor() {
     this.players = [];
     this.walls = [];
     this.floors = [];
+    this.spawn = new Point(0, 0);
     this.turn = 0;
     this.isAnythingMoving = false;
 
@@ -35,12 +43,17 @@ class GameState {
         return response.json();
       })
       .then((data) => {
-        var tiles = data["levels"][0]["layerInstances"][0]["autoLayerTiles"];
+        var spawnEntity =
+          data["levels"][0]["layerInstances"][0]["entityInstances"][0];
+        this.spawn.x = spawnEntity.px[0];
+        this.spawn.y = spawnEntity.px[1];
+
+        var tiles = data["levels"][0]["layerInstances"][1]["autoLayerTiles"];
         tiles.forEach((tile) => {
           this.walls.push(new Wall(tile["px"][0], tile["px"][1], 40, 40));
         });
 
-        var tiles = data["levels"][0]["layerInstances"][1]["autoLayerTiles"];
+        var tiles = data["levels"][0]["layerInstances"][2]["autoLayerTiles"];
         tiles.forEach((tile) => {
           this.floors.push(new Wall(tile["px"][0], tile["px"][1], 40, 40));
         });
@@ -70,7 +83,12 @@ class Server {
       this.connections.push(conn);
 
       var id = conn.peer;
-      this.gameState.players.push(new Player(id));
+      var player = new Player(id).setPosition(
+        this.gameState.spawn.x,
+        this.gameState.spawn.y,
+      );
+
+      this.gameState.players.push(player);
 
       conn.on("data", (data) => {
         console.log(data);
