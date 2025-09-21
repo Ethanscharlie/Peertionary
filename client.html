@@ -105,12 +105,36 @@
 
       function render(gameState) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        renderBackground();
 
         var i = 0;
         gameState.players.forEach((player) => {
           drawBall(player, colors[i]);
           i++;
         });
+      }
+
+      function renderBackground() {
+        const rows = 12;
+        const cols = 12;
+        const squareSize = canvas.width / cols;
+
+        for (let row = 0; row < rows; row++) {
+          for (let col = 0; col < cols; col++) {
+            if ((row + col) % 2 === 0) {
+              ctx.fillStyle = "green";
+            } else {
+              ctx.fillStyle = "lightgreen";
+            }
+
+            ctx.fillRect(
+              col * squareSize,
+              row * squareSize,
+              squareSize,
+              squareSize,
+            );
+          }
+        }
       }
 
       function drawBall(player, color) {
