@@ -32,16 +32,16 @@ canvas.addEventListener("mouseup", function (event) {
 function getMousePos(evt) {
   var rect = canvas.getBoundingClientRect();
   return {
-    x: (evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width,
-    y: (evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
+    x: ((evt.clientX - rect.left) / (rect.right - rect.left)) * canvas.width,
+    y: ((evt.clientY - rect.top) / (rect.bottom - rect.top)) * canvas.height,
   };
 }
 
 window.requestAnimationFrame(gameLoop);
 function gameLoop() {
-    updatePhysics();
-    render();
-    window.requestAnimationFrame(gameLoop);
+  updatePhysics();
+  render();
+  window.requestAnimationFrame(gameLoop);
 }
 
 function updatePhysics() {
@@ -49,7 +49,7 @@ function updatePhysics() {
 }
 
 function render() {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   ball.draw();
 
   if (aiming) {

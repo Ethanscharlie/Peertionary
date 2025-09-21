@@ -7,6 +7,13 @@ class GameState {
   getCurrentPlayer() {
     return this.players[this.turn];
   }
+
+  nextTurn() {
+    this.turn++;
+    if (this.turn >= this.players.length) {
+      this.turn = 0;
+    }
+  }
 }
 
 class Server {
@@ -40,6 +47,7 @@ class Server {
           var player = this.gameState.getCurrentPlayer();
           player.velocityX = data.moveX;
           player.velocityY = data.moveY;
+          this.gameState.nextTurn();
         }
 
         this.updateForAllClients();
