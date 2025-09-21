@@ -43,7 +43,7 @@ class Server {
       conn.on("data", (data) => {
         console.log(data);
 
-        if (this.itIsThisPlayersTurn(conn.peer)) {
+        if (this.itIsThisPlayersTurn(conn.peer) && !this.isAnythingMoving()) {
           var player = this.gameState.getCurrentPlayer();
           player.velocityX = data.moveX;
           player.velocityY = data.moveY;
@@ -76,13 +76,15 @@ class Server {
   }
 
   isAnythingMoving() {
+    var moving = false;
+
     this.gameState.players.forEach((player) => {
       if (player.isMoving()) {
-        return true;
+        moving = true;
       }
     });
 
-    return false;
+    return moving;
   }
 
   updatePhysics() {

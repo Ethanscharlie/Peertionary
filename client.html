@@ -137,8 +137,8 @@
       canvas.addEventListener("mousemove", function (event) {
         if (!aiming) return;
         var mousePos = getMousePos(event);
-        move.x = (dragStartPos.x - mousePos.x) / 20;
-        move.y = (dragStartPos.y - mousePos.y) / 20;
+        move.x = (dragStartPos.x - mousePos.x) / 50;
+        move.y = (dragStartPos.y - mousePos.y) / 50;
       });
 
       canvas.addEventListener("mouseup", function (event) {

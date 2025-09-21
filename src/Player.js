@@ -1,7 +1,7 @@
 class Player {
   constructor(id) {
     this.RADIUS = 15;
-    this.DRAG = 0.1;
+    this.DRAG = 0.01;
 
     this.id = id;
     this.x = 40;
