@@ -1,0 +1,10 @@
+canvas {
+  background-color: white;
+  margin: 20px;
+  /* display: inline-block; */
+
+  float: left;
+  width: 100%;
+
+  cursor: crosshair;
+}

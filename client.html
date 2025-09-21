@@ -4,19 +4,13 @@
     <meta charset="UTF-8" />
     <title>WebRTC DataChannel - Two Peer Demo</title>
 
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <p id="servercode">...</p>
     <p id="turn">Turn:</p>
 
-    <canvas
-      id="canvas"
-      width="800"
-      height="800"
-      style="border: 10px solid #000000"
-    ></canvas>
+    <canvas id="canvas" width="800" height="800"></canvas>
 
     <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
     <script src="src/Player.js"></script>
@@ -111,7 +105,7 @@
       }
 
       function drawBall(player, color) {
-        var RADIUS = 15;
+        var RADIUS = 8;
 
         ctx.fillStyle = color;
         ctx.beginPath();

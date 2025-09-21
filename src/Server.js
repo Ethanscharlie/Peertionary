@@ -50,12 +50,12 @@ class GameState {
 
         var tiles = data["levels"][0]["layerInstances"][1]["autoLayerTiles"];
         tiles.forEach((tile) => {
-          this.walls.push(new Wall(tile["px"][0], tile["px"][1], 40, 40));
+          this.walls.push(new Wall(tile["px"][0], tile["px"][1], 16, 16));
         });
 
         var tiles = data["levels"][0]["layerInstances"][2]["autoLayerTiles"];
         tiles.forEach((tile) => {
-          this.floors.push(new Wall(tile["px"][0], tile["px"][1], 40, 40));
+          this.floors.push(new Wall(tile["px"][0], tile["px"][1], 16, 16));
         });
       });
   }
