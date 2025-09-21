@@ -41,6 +41,10 @@
       let move = { x: 0, y: 0 };
       let aiming = false;
 
+      function clamp(num, min, max) {
+        return num <= min ? min : num >= max ? max : num;
+      }
+
       window.requestAnimationFrame(gameLoop);
       function gameLoop() {
         if (server != null) {
@@ -123,8 +127,8 @@
       canvas.addEventListener("mousemove", function (event) {
         if (!aiming) return;
         var mousePos = getMousePos(event);
-        move.x = (dragStartPos.x - mousePos.x) / 20;
-        move.y = (dragStartPos.y - mousePos.y) / 20;
+        move.x = clamp((dragStartPos.x - mousePos.x) / 20, -10, 10);
+        move.y = clamp((dragStartPos.y - mousePos.y) / 20, -10, 10);
       });
 
       canvas.addEventListener("mouseup", function (event) {
