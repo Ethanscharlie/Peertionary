@@ -16,7 +16,6 @@ class Client {
 
       this.conn.on("open", () => {
         console.log("Opened connected from " + id);
-        this.sendMovement();
       });
 
       this.conn.on("data", this.functionToRunOnDataReceived);
@@ -28,10 +27,10 @@ class Client {
     return this;
   }
 
-  sendMovement() {
+  sendMovement(x, y) {
     var data = {};
-    data.moveX = 1;
-    data.moveY = 0;
+    data.moveX = x;
+    data.moveY = y;
     this.conn.send(data);
   }
 }
