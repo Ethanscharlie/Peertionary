@@ -1,7 +1,7 @@
 class Player {
   constructor(id) {
     this.RADIUS = 15;
-    this.DRAG = 0.01;
+    this.DRAG = 0.99;
 
     this.id = id;
     this.x = 40;
@@ -31,16 +31,9 @@ class Player {
   }
 
   applyDragToNumber(number) {
-    if (number > this.DRAG) {
-      number -= this.DRAG;
-      return number;
+    if (Math.abs(number) < 0.1) {
+      return 0;
     }
-
-    if (number < -this.DRAG) {
-      number += this.DRAG;
-      return number;
-    }
-
-    return 0;
+    return number * this.DRAG;
   }
 }
