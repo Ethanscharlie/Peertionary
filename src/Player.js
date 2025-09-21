@@ -1,11 +1,11 @@
 class Player {
   constructor(id) {
     this.RADIUS = 15;
-    this.DRAG = 0;
+    this.DRAG = 0.1;
 
     this.id = id;
-    this.x = 10;
-    this.y = 300;
+    this.x = 40;
+    this.y = 40;
     this.velocityX = 0;
     this.velocityY = 0;
   }
