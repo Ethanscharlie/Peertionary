@@ -9,7 +9,7 @@ class Ball {
     this.x = 0;
     this.y = 0;
 
-    this.velocity = {'x': 0, 'y': 0};
+    this.velocity = { x: 0, y: 0 };
   }
 
   setPosition(x, y) {
@@ -32,15 +32,15 @@ class Ball {
 
   applyDragToNumber(number) {
     if (number > this.DRAG) {
-      number -= this.DRAG;  
+      number -= this.DRAG;
       return number;
     }
-  
+
     if (number < -this.DRAG) {
-      number += this.DRAG;  
+      number += this.DRAG;
       return number;
     }
-  
+
     return 0;
   }
 
@@ -54,4 +54,3 @@ class Ball {
     );
   }
 }
-

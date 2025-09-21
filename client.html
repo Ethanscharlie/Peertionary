@@ -9,13 +9,22 @@
   </head>
   <body>
     <p id="servercode">...</p>
-    <button onclick="sendMessage()">Send Message</button>
-    <p id="messages"></p>
+
+    <canvas
+      id="canvas"
+      width="800"
+      height="800"
+      style="border: 1px solid #000000"
+    ></canvas>
 
     <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+    <script src="src/Player.js"></script>
     <script src="src/Server.js"></script>
     <script src="src/Client.js"></script>
     <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
       const urlParams = new URLSearchParams(window.location.search);
       let code = urlParams.get("code");
 
@@ -32,14 +41,37 @@
         setup(code);
       }
 
+      window.requestAnimationFrame(gameLoop);
+      function gameLoop() {
+        if (server != null) {
+          server.gameLoop();
+        }
+        window.requestAnimationFrame(gameLoop);
+      }
+
       function setup(code) {
         client = new Client(code).onDataReceived((data) => {
-          document.getElementById("messages").innerText = data;
+          render(data);
         });
       }
 
-      function sendMessage() {
-        client.sendMessage(prompt("Message?"));
+      function render(gameState) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        gameState.players.forEach((player) => {
+          drawBall(player);
+        });
+      }
+
+      function drawBall(player) {
+        var RADIUS = 15;
+
+        ctx.fillStyle = "navy";
+        ctx.fillRect(
+          player.x - RADIUS,
+          player.y - RADIUS,
+          RADIUS * 2,
+          RADIUS * 2,
+        );
       }
     </script>
   </body>
