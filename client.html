@@ -67,6 +67,7 @@
       function render(gameState) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         renderBackground();
+        renderFloors(gameState);
 
         var i = 0;
         gameState.players.forEach((player) => {
@@ -89,67 +90,32 @@
 
       function renderWalls(gameState) {
         gameState.walls.forEach((wall) => {
-          renderWall(wall);
+          renderWall(wall, "darkgreen");
         });
       }
 
-      function renderWall(wall) {
-        drawRoundedRect(wall.x, wall.y, wall.w, wall.h, 10, "lightblue");
+      function renderFloors(gameState) {
+        gameState.floors.forEach((floor) => {
+          renderWall(floor, "grey");
+        });
       }
 
-      function drawRoundedRect(x, y, width, height, radius, color) {
-        ctx.lineWidth = 10;
+      function renderWall(wall, color) {
         ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.moveTo(x + radius, y); // Start at the top left corner
-        ctx.lineTo(x + width - radius, y); // Top edge
-        ctx.arcTo(x + width, y, x + width, y + height, radius); // Top-right corner
-        ctx.lineTo(x + width, y + height - radius); // Right edge
-        ctx.arcTo(
-          x + width,
-          y + height,
-          x + width - radius,
-          y + height,
-          radius,
-        ); // Bottom-right corner
-        ctx.lineTo(x + radius, y + height); // Bottom edge
-        ctx.arcTo(x, y + height, x, y + height - radius, radius); // Bottom-left corner
-        ctx.lineTo(x, y + radius); // Left edge
-        ctx.arcTo(x, y, x + radius, y, radius); // Top-left corner
-        ctx.closePath();
-        ctx.stroke(); // Draw the border
-        ctx.fill(); // Fill the rectangle with color
+        ctx.fillRect(wall.x, wall.y, wall.w, wall.h);
       }
 
       function renderBackground() {
-        const rows = 12;
-        const cols = 12;
-        const squareSize = canvas.width / cols;
-
-        for (let row = 0; row < rows; row++) {
-          for (let col = 0; col < cols; col++) {
-            if ((row + col) % 2 === 0) {
-              ctx.fillStyle = "green";
-            } else {
-              ctx.fillStyle = "lightgreen";
-            }
-
-            ctx.fillRect(
-              col * squareSize,
-              row * squareSize,
-              squareSize,
-              squareSize,
-            );
-          }
-        }
+        ctx.fillStyle = "skyblue";
+        ctx.fillRect(0, 0, 800, 800);
       }
 
       function drawBall(player, color) {
         var RADIUS = 15;
 
+        ctx.fillStyle = color;
         ctx.beginPath();
         ctx.arc(player.x, player.y, RADIUS, 0, 2 * Math.PI);
-        ctx.fillStyle = color;
         ctx.fill();
         ctx.lineWidth = 5;
         ctx.stroke();
@@ -163,8 +129,8 @@
       canvas.addEventListener("mousemove", function (event) {
         if (!aiming) return;
         var mousePos = getMousePos(event);
-        move.x = (dragStartPos.x - mousePos.x) / 50;
-        move.y = (dragStartPos.y - mousePos.y) / 50;
+        move.x = (dragStartPos.x - mousePos.x) / 20;
+        move.y = (dragStartPos.y - mousePos.y) / 20;
       });
 
       canvas.addEventListener("mouseup", function (event) {
