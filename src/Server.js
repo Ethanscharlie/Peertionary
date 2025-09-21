@@ -3,6 +3,10 @@ class GameState {
     this.players = [];
     this.turn = 0;
   }
+
+  getCurrentPlayer() {
+    return this.players[this.turn];
+  }
 }
 
 class Server {
@@ -32,6 +36,12 @@ class Server {
       conn.on("data", (data) => {
         console.log(data);
 
+        if (this.itIsThisPlayersTurn(conn.peer)) {
+          var player = this.gameState.getCurrentPlayer();
+          player.velocityX = data.moveX;
+          player.velocityY = data.moveY;
+        }
+
         this.updateForAllClients();
       });
     });
@@ -46,6 +56,10 @@ class Server {
     this.connections.forEach((conn) => {
       conn.send(this.gameState);
     });
+  }
+
+  itIsThisPlayersTurn(id) {
+    return this.gameState.getCurrentPlayer().id == id;
   }
 
   gameLoop() {

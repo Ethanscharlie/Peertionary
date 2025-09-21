@@ -6,7 +6,7 @@ class Player {
     this.id = id;
     this.x = 10;
     this.y = 300;
-    this.velocityX = 1;
+    this.velocityX = 0;
     this.velocityY = 0;
   }
 
