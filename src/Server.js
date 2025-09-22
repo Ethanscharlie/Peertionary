@@ -23,7 +23,7 @@ class GameState {
     this.turn = 0;
     this.isAnythingMoving = false;
 
-    this.loadWallsFromFile();
+    // this.loadWallsFromFile();
   }
 
   getCurrentPlayer() {

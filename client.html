@@ -16,6 +16,7 @@
     <script src="src/Player.js"></script>
     <script src="src/Server.js"></script>
     <script src="src/Client.js"></script>
+    <script src="src/ClientInterface.js"></script>
     <script>
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
@@ -26,6 +27,7 @@
 
       let server;
       let client;
+      let clientInterface;
 
       if (code == null) {
         server = new Server().then((code) => {
@@ -37,12 +39,17 @@
         setup(code);
       }
 
-      let dragStartPos = { x: 0, y: 0 };
-      let move = { x: 0, y: 0 };
-      let aiming = false;
+      function setup(code) {
+        clientInterface = new ClientInterface(canvas);
 
-      function clamp(num, min, max) {
-        return num <= min ? min : num >= max ? max : num;
+        client = new Client(code).onDataReceived((data) => {
+          turnText.innerText = "Turn: " + data.turn;
+          clientInterface.render(data, client.clientID);
+        });
+
+        clientInterface.setSendMovement((x, y) => {
+          client.sendMovement(x, y);
+        });
       }
 
       window.requestAnimationFrame(gameLoop);
@@ -50,102 +57,8 @@
         if (server != null) {
           server.gameLoop();
         }
+
         window.requestAnimationFrame(gameLoop);
-      }
-
-      function setup(code) {
-        client = new Client(code).onDataReceived((data) => {
-          turnText.innerText = "Turn: " + data.turn;
-          render(data);
-        });
-      }
-
-      const colors = ["white", "white", "white", "white", "white"];
-
-      function render(gameState) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        renderBackground();
-        renderFloors(gameState);
-
-        var i = 0;
-        gameState.players.forEach((player) => {
-          if (player.id == client.clientID) {
-            if (aiming) {
-              ctx.beginPath();
-              ctx.moveTo(player.x, player.y);
-              ctx.lineTo(player.x + move.x * 20, player.y + move.y * 20);
-              ctx.stroke();
-            }
-          }
-
-          drawBall(player, colors[i]);
-
-          i++;
-        });
-
-        renderWalls(gameState);
-      }
-
-      function renderWalls(gameState) {
-        gameState.walls.forEach((wall) => {
-          renderWall(wall, "darkgreen");
-        });
-      }
-
-      function renderFloors(gameState) {
-        gameState.floors.forEach((floor) => {
-          renderWall(floor, "grey");
-        });
-      }
-
-      function renderWall(wall, color) {
-        ctx.fillStyle = color;
-        ctx.fillRect(wall.x, wall.y, wall.w, wall.h);
-      }
-
-      function renderBackground() {
-        ctx.fillStyle = "skyblue";
-        ctx.fillRect(0, 0, 800, 800);
-      }
-
-      function drawBall(player, color) {
-        var RADIUS = 8;
-
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(player.x, player.y, RADIUS, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.lineWidth = 5;
-        ctx.stroke();
-      }
-
-      canvas.addEventListener("mousedown", function (event) {
-        dragStartPos = getMousePos(event);
-        aiming = true;
-      });
-
-      canvas.addEventListener("mousemove", function (event) {
-        if (!aiming) return;
-        var mousePos = getMousePos(event);
-        move.x = clamp((dragStartPos.x - mousePos.x) / 20, -10, 10);
-        move.y = clamp((dragStartPos.y - mousePos.y) / 20, -10, 10);
-      });
-
-      canvas.addEventListener("mouseup", function (event) {
-        client.sendMovement(move.x, move.y);
-        aiming = false;
-      });
-
-      function getMousePos(evt) {
-        var rect = canvas.getBoundingClientRect();
-        return {
-          x:
-            ((evt.clientX - rect.left) / (rect.right - rect.left)) *
-            canvas.width,
-          y:
-            ((evt.clientY - rect.top) / (rect.bottom - rect.top)) *
-            canvas.height,
-        };
       }
     </script>
   </body>

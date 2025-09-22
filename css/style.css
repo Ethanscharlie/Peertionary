@@ -4,7 +4,6 @@ canvas {
   /* display: inline-block; */
 
   float: left;
-  width: 100%;
 
   cursor: crosshair;
 }
