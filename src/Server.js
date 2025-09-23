@@ -1,3 +1,5 @@
+import { Player } from "./Player.js";
+
 class Wall {
   constructor(x, y, w, h) {
     this.x = x;
@@ -146,3 +148,5 @@ class Server {
     });
   }
 }
+
+export { Server, GameState, Point, Wall };

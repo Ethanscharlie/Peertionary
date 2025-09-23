@@ -79,3 +79,5 @@ class Player {
     return number * this.DRAG;
   }
 }
+
+export { Player };

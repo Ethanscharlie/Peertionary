@@ -1,3 +1,5 @@
+import { Server } from "./Server.js";
+
 class ClientInterface {
   constructor(canvas) {
     this.colors = ["white", "white", "white", "white", "white"];
@@ -11,7 +13,7 @@ class ClientInterface {
 
     this.sendMovement = (x, y) => {};
 
-    window.requestAnimationFrame(gameLoop);
+    // window.requestAnimationFrame(gameLoop);
 
     this.canvas.addEventListener("mousedown", (event) => {
       this.dragStartPos = this.getMousePos(event);
@@ -120,3 +122,5 @@ class ClientInterface {
     };
   }
 }
+
+export { ClientInterface };

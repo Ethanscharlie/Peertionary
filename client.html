@@ -13,11 +13,16 @@
     <canvas id="canvas" width="800" height="800"></canvas>
 
     <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
-    <script src="src/Player.js"></script>
-    <script src="src/Server.js"></script>
-    <script src="src/Client.js"></script>
-    <script src="src/ClientInterface.js"></script>
-    <script>
+    <!-- <script src="src/Player.js"></script> -->
+    <!-- <script src="src/Server.js"></script> -->
+    <!-- <script src="src/Client.js"></script> -->
+    <!-- <script src="src/ClientInterface.js"></script> -->
+    <script type="module">
+      import { Server, GameState, Point, Wall } from "./src/Server.js";
+      import { Client } from "./src/Client.js";
+      import { Player } from "./src/Player.js";
+      import { ClientInterface } from "./src/ClientInterface.js";
+
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
       const turnText = document.getElementById("turn");

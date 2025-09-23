@@ -34,3 +34,5 @@ class Client {
     this.conn.send(data);
   }
 }
+
+export { Client };
