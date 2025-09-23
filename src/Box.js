@@ -1,4 +1,4 @@
-class Wall {
+class Box {
   constructor(x, y, w, h) {
     this.x = x;
     this.y = y;
@@ -7,4 +7,4 @@ class Wall {
   }
 }
 
-export { Wall };
+export { Box };

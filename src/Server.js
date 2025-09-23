@@ -1,6 +1,6 @@
 import { Player } from "./Player.js";
 import { GameState } from "./GameState.js";
-import { Wall } from "./Wall.js";
+import { Box } from "./Box.js";
 import { Point } from "./Point.js";
 
 class Server {
@@ -89,4 +89,4 @@ class Server {
   }
 }
 
-export { Server, GameState, Point, Wall };
+export { Server, GameState, Point, Box };

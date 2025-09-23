@@ -74,24 +74,24 @@ class ClientInterface {
       i++;
     });
 
-    this.renderWalls(gameState);
+    this.renderBoxs(gameState);
   }
 
-  renderWalls(gameState) {
-    gameState.walls.forEach((wall) => {
-      this.renderWall(wall, "darkgreen");
+  renderBoxs(gameState) {
+    gameState.boxs.forEach((box) => {
+      this.renderBox(box, "darkgreen");
     });
   }
 
   renderFloors(gameState) {
     gameState.floors.forEach((floor) => {
-      this.renderWall(floor, "grey");
+      this.renderBox(floor, "grey");
     });
   }
 
-  renderWall(wall, color) {
+  renderBox(box, color) {
     this.ctx.fillStyle = color;
-    this.ctx.fillRect(wall.x, wall.y, wall.w, wall.h);
+    this.ctx.fillRect(box.x, box.y, box.w, box.h);
   }
 
   renderBackground() {

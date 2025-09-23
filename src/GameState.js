@@ -1,16 +1,16 @@
-import { Wall } from "./Wall.js";
+import { Box } from "./Box.js";
 import { Point } from "./Point.js";
 
 class GameState {
   constructor() {
     this.players = [];
-    this.walls = [];
+    this.boxs = [];
     this.floors = [];
     this.spawn = new Point(0, 0);
     this.turn = 0;
     this.isAnythingMoving = false;
 
-    // this.loadWallsFromFile();
+    // this.loadBoxsFromFile();
   }
 
   getCurrentPlayer() {
@@ -24,7 +24,7 @@ class GameState {
     }
   }
 
-  loadWallsFromFile() {
+  loadBoxsFromFile() {
     fetch("./golf.ldtk")
       .then((response) => {
         return response.json();
@@ -37,12 +37,12 @@ class GameState {
 
         var tiles = data["levels"][0]["layerInstances"][1]["autoLayerTiles"];
         tiles.forEach((tile) => {
-          this.walls.push(new Wall(tile["px"][0], tile["px"][1], 16, 16));
+          this.boxs.push(new Box(tile["px"][0], tile["px"][1], 16, 16));
         });
 
         var tiles = data["levels"][0]["layerInstances"][2]["autoLayerTiles"];
         tiles.forEach((tile) => {
-          this.floors.push(new Wall(tile["px"][0], tile["px"][1], 16, 16));
+          this.floors.push(new Box(tile["px"][0], tile["px"][1], 16, 16));
         });
       });
   }
