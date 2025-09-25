@@ -53,6 +53,7 @@ class ClientInterface {
   render(gameState, myID) {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.renderBackground();
+    this.renderHole(gameState);
 
     var i = 0;
     gameState.players.forEach((player) => {
@@ -68,12 +69,17 @@ class ClientInterface {
         }
       }
 
-      this.drawBall(player, this.colors[i]);
+      this.drawBall(player.x, player.y, this.colors[i], 8);
 
       i++;
     });
 
     this.renderBoxs(gameState);
+  }
+
+  renderHole(gameState) {
+    var holePoint = gameState.level.hole;
+    this.drawBall(holePoint.x, holePoint.y, "black", 15);
   }
 
   renderBoxs(gameState) {
@@ -92,12 +98,10 @@ class ClientInterface {
     this.ctx.fillRect(0, 0, 800, 800);
   }
 
-  drawBall(player, color) {
-    var RADIUS = 8;
-
+  drawBall(x, y, color, radius) {
     this.ctx.fillStyle = color;
     this.ctx.beginPath();
-    this.ctx.arc(player.x, player.y, RADIUS, 0, 2 * Math.PI);
+    this.ctx.arc(x, y, radius, 0, 2 * Math.PI);
     this.ctx.fill();
     this.ctx.lineWidth = 5;
     this.ctx.stroke();

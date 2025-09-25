@@ -11,8 +11,8 @@ class GameState {
     // this.loadBoxsFromFile();
 
     this.level = new Level()
-      .setSpawn(new Point(0, 0))
-      .setHole(new Point(0, 0))
+      .setSpawn(new Point(400, 400))
+      .setHole(new Point(700, 300))
       .addWall(new Box(10, 10, 100, 100));
   }
 
