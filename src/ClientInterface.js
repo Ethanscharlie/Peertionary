@@ -53,7 +53,6 @@ class ClientInterface {
   render(gameState, myID) {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.renderBackground();
-    this.renderFloors(gameState);
 
     var i = 0;
     gameState.players.forEach((player) => {
@@ -78,14 +77,8 @@ class ClientInterface {
   }
 
   renderBoxs(gameState) {
-    gameState.boxs.forEach((box) => {
+    gameState.level.walls.forEach((box) => {
       this.renderBox(box, "darkgreen");
-    });
-  }
-
-  renderFloors(gameState) {
-    gameState.floors.forEach((floor) => {
-      this.renderBox(floor, "grey");
     });
   }
 

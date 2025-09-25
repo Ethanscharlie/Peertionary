@@ -31,7 +31,7 @@ class Player {
       this.velocityY *= -1;
     }
 
-    gameState.boxs.forEach((box) => {
+    gameState.level.walls.forEach((box) => {
       // Check for horizontal collision (left or right)
       if (this.y >= box.y && this.y <= box.y + box.h) {
         // Moving left (point.x - velocityX <= box.x) – collision with the left side of the box

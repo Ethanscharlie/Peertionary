@@ -1,16 +1,19 @@
 import { Box } from "./Box.js";
 import { Point } from "./Point.js";
+import { Level } from "./Level.js";
 
 class GameState {
   constructor() {
     this.players = [];
-    this.boxs = [];
-    this.floors = [];
-    this.spawn = new Point(0, 0);
     this.turn = 0;
     this.isAnythingMoving = false;
 
     // this.loadBoxsFromFile();
+
+    this.level = new Level()
+      .setSpawn(new Point(0, 0))
+      .setHole(new Point(0, 0))
+      .addWall(new Box(10, 10, 100, 100));
   }
 
   getCurrentPlayer() {
