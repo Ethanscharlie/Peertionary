@@ -10,10 +10,22 @@ class GameState {
 
     // this.loadBoxsFromFile();
 
-    this.level = new Level()
-      .setSpawn(new Point(400, 400))
-      .setHole(new Point(700, 300))
-      .addWall(new Box(10, 10, 100, 100));
+    this.levelIndex = 0;
+
+    this.levels = [
+      new Level()
+        .setSpawn(new Point(400, 400))
+        .setHole(new Point(700, 300))
+        .addWall(new Box(10, 10, 100, 100)),
+      new Level()
+        .setSpawn(new Point(400, 400))
+        .setHole(new Point(700, 300))
+        .addWall(new Box(10, 10, 100, 100)),
+    ];
+  }
+
+  getCurrentLevel() {
+    return this.levels[this.levelIndex];
   }
 
   getCurrentPlayer() {

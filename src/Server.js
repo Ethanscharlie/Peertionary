@@ -26,8 +26,8 @@ class Server {
 
       var id = conn.peer;
       var player = new Player(id).setPosition(
-        this.gameState.level.spawn.x,
-        this.gameState.level.spawn.y,
+        this.gameState.getCurrentLevel().spawn.x,
+        this.gameState.getCurrentLevel().spawn.y,
       );
 
       this.gameState.players.push(player);

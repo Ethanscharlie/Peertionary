@@ -78,12 +78,12 @@ class ClientInterface {
   }
 
   renderHole(gameState) {
-    var holePoint = gameState.level.hole;
+    var holePoint = gameState.levels[gameState.levelIndex].hole;
     this.drawBall(holePoint.x, holePoint.y, "black", 15);
   }
 
   renderBoxs(gameState) {
-    gameState.level.walls.forEach((box) => {
+    gameState.levels[gameState.levelIndex].walls.forEach((box) => {
       this.renderBox(box, "darkgreen");
     });
   }
