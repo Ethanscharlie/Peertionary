@@ -1,6 +1,7 @@
 import { Box } from "./Box.js";
 import { Point } from "./Point.js";
 import { Level } from "./Level.js";
+import { Player } from "./Player.js";
 
 class GameState {
   constructor() {
@@ -37,6 +38,15 @@ class GameState {
     if (this.turn >= this.players.length) {
       this.turn = 0;
     }
+  }
+
+  addNewPlayer(id) {
+    var player = new Player(id).setPosition(
+      this.getCurrentLevel().spawn.x,
+      this.getCurrentLevel().spawn.y,
+    );
+
+    this.players.push(player);
   }
 
   loadBoxsFromFile() {
